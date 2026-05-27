@@ -1,15 +1,7 @@
 require('dotenv').config();
 
-// =====================================
-// IMPORTS
-// =====================================
-
 const app = require('./app');
 const connectDB = require('./config/db');
-
-// =====================================
-// CONNECT DATABASE
-// =====================================
 
 connectDB()
   .then(() => {
@@ -21,9 +13,5 @@ connectDB()
       error.message
     );
   });
-
-// =====================================
-// EXPORT APP FOR VERCEL
-// =====================================
 
 module.exports = app;
