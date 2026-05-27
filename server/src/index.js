@@ -5,52 +5,25 @@ require('dotenv').config();
 // =====================================
 
 const app = require('./app');
-
 const connectDB = require('./config/db');
 
 // =====================================
-// PORT
+// CONNECT DATABASE
 // =====================================
 
-const PORT =
-  process.env.PORT || 5000;
-
-// =====================================
-// START SERVER
-// =====================================
-
-const startServer = async () => {
-
-  try {
-
-    // CONNECT DATABASE
-
-    await connectDB();
-
-    console.log('DB Connected');
-
-    // START EXPRESS SERVER
-
-    app.listen(PORT, () => {
-
-      console.log(
-        `Server running on port ${PORT}`
-      );
-
-    });
-
-  } catch (error) {
-
+connectDB()
+  .then(() => {
+    console.log('MongoDB Connected');
+  })
+  .catch((error) => {
     console.error(
-      'Startup Error:',
+      'Database Connection Error:',
       error.message
     );
-
-  }
-};
+  });
 
 // =====================================
-// RUN SERVER
+// EXPORT APP FOR VERCEL
 // =====================================
 
-startServer();
+module.exports = app;
