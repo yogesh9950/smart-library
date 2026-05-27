@@ -1,21 +1,56 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
+
+// =====================================
+// IMPORTS
+// =====================================
+
 const app = require('./app');
+
 const connectDB = require('./config/db');
 
-dotenv.config();
+// =====================================
+// PORT
+// =====================================
 
-const port = process.env.PORT || 5000;
+const PORT =
+  process.env.PORT || 5000;
+
+// =====================================
+// START SERVER
+// =====================================
 
 const startServer = async () => {
-  try {
-    await connectDB();
-  } catch (error) {
-    console.error('Startup DB check failed:', error.message);
-  }
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
+  try {
+
+    // CONNECT DATABASE
+
+    await connectDB();
+
+    console.log('DB Connected');
+
+    // START EXPRESS SERVER
+
+    app.listen(PORT, () => {
+
+      console.log(
+        `Server running on port ${PORT}`
+      );
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      'Startup Error:',
+      error.message
+    );
+
+  }
 };
+
+// =====================================
+// RUN SERVER
+// =====================================
 
 startServer();
